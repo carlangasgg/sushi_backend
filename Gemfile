@@ -46,4 +46,4 @@ group :development do
 end
 
 gem 'jsonapi-serializer'
-
+gem 'httparty'

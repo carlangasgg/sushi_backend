@@ -7,7 +7,7 @@ class Printer < ApplicationRecord
   validates :status, inclusion: { in: statuses.keys }
   validates :name, presence: true
 
-  after_update: :log_status_change, if: :saved_change_to_status?
+  after_update :log_status_change, if: :saved_change_to_status?
 
   private
 
