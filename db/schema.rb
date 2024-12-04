@@ -73,10 +73,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_04_171952) do
     t.bigint "local_id"
     t.integer "last_status"
     t.integer "current_status"
+    t.string "loggable_type"
+    t.bigint "loggable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["device_id"], name: "index_status_logs_on_device_id"
     t.index ["local_id"], name: "index_status_logs_on_local_id"
+    t.index ["loggable_type", "loggable_id"], name: "index_status_logs_on_loggable"
   end
 
   create_table "users", force: :cascade do |t|

@@ -6,6 +6,8 @@ class CreateStatusLog < ActiveRecord::Migration[7.1]
       t.integer :last_status
       t.integer :current_status
 
+      t.references :loggable, polymorphic: true
+
       t.timestamps
     end
   end

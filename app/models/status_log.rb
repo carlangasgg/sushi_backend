@@ -1,4 +1,3 @@
 class StatusLog < ApplicationRecord
-  belongs_to :device
-  belongs_to :user
+  belongs_to :loggable, polymorphic: true
 end
