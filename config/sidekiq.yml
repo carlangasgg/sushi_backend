@@ -4,3 +4,11 @@
       cron: "*/1 * * * *"
       class: FetchPosJob
       queue: default
+    fetch_printers_job:
+      cron: "*/1 * * * *"
+      class: FetchPosJob
+      queue: default
+    fetch_red_services_job:
+      cron: "*/1 * * * *"
+      class: FetchPosJob
+      queue: default

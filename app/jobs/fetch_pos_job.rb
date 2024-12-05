@@ -1,17 +1,15 @@
 class FetchPosJob
   include Sidekiq::Job
 
-  sidekiq_options retry: 5  # Retry 5 times before giving up
+  sidekiq_options retry:
 
   def perform
     begin
       response = HTTParty.get("http://localhost:3000/device/show_pos")
       
       if response.success?
-        data = JSON.parse(response.body)  # Parse the response
-        Rails.logger.info("Data being cached: #{data.inspect}")
+        data = JSON.parse(response.body)
         Rails.cache.write("cached_pos_data", data, expires_in: 1.hour)
-        Rails.logger.info("Cache after writing: #{Rails.cache.read("cached_pos_data").inspect}")
         Rails.logger.info("Successfully fetched and cached PoS data.")
       else
         Rails.logger.error("Failed to fetch data from the API: #{response.message}")

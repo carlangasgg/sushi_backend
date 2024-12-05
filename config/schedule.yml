@@ -1,5 +1,13 @@
 :schedule:
   fetch_pos_job:
-    cron: "*/1 * * * *"  # This schedules the job to run every 15 minutes
+    cron: "*/1 * * * *"
     class: "FetchPosJob"
+    queue: "default"
+  fetch_printers_job:
+    cron: "*/1 * * * *"
+    class: "FetchPrintersJob"
+    queue: "default"
+  fetch_red_services_job:
+    cron: "*/1 * * * *"
+    class: "FetchRedServicesJob"
     queue: "default"
