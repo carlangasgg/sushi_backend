@@ -12,4 +12,11 @@ Rails.application.routes.draw do
     get 'check_device_status', to: 'admin#check_device_status'
     patch 'update_device_status', to: 'admin#update_device_status'
   end
+
+  namespace :device do
+    get 'show_pos', to: 'device#show_pos'
+    get 'show_printers', to: 'device#show_printers'
+    get 'show_red_systems', to: 'device#show_red_systems'
+    get 'show_locales', to: 'device#show_locales'
+  end
 end
