@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-local = Local.find_or_create_by!(status: 0)
+local = Local.find_or_create_by!(name: "Local principal", status: 0)
 
 User.find_or_create_by!(name: "Usuario de prueba", local_id: local.id)
 
