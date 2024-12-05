@@ -1,0 +1,5 @@
+:schedule:
+  fetch_pos_job:
+    cron: "*/1 * * * *"  # This schedules the job to run every 15 minutes
+    class: "FetchPosJob"
+    queue: "default"

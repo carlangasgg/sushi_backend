@@ -1,4 +1,14 @@
+require 'sidekiq/web'
+
+# Configure Sidekiq-specific session middleware
+Sidekiq::Web.use ActionDispatch::Cookies
+Sidekiq::Web.use ActionDispatch::Session::CookieStore, key: "_interslice_session"
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == 'admin' && password == 'password'
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -18,5 +28,7 @@ Rails.application.routes.draw do
     get 'show_printers', to: 'device#show_printers'
     get 'show_red_systems', to: 'device#show_red_systems'
     get 'show_locales', to: 'device#show_locales'
+
+    get 'show_pos_job', to: 'device#show_pos_job'
   end
 end
