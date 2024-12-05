@@ -32,8 +32,8 @@ class Device::DeviceController < ApplicationController
     render json: @rs
   end
 
-  def show_red_services_job
-    data = Rails.cache.read("cached_red_services_data")
+  def show_red_systems_job
+    data = Rails.cache.read("cached_red_systems_data")
     if data
       render json: data
     else

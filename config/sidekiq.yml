@@ -6,9 +6,9 @@
       queue: default
     fetch_printers_job:
       cron: "*/1 * * * *"
-      class: FetchPosJob
+      class: FetchPrintersJob
       queue: default
-    fetch_red_services_job:
+    fetch_red_systems_job:
       cron: "*/1 * * * *"
-      class: FetchPosJob
+      class: FetchRedSystemsJob
       queue: default

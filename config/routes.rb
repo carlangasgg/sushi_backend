@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   namespace :admin do
-    get 'something', to: 'admin#something'
     get 'check_device_status', to: 'admin#check_device_status'
     patch 'update_device_status', to: 'admin#update_device_status'
   end
@@ -30,5 +29,7 @@ Rails.application.routes.draw do
     get 'show_locales', to: 'device#show_locales'
 
     get 'show_pos_job', to: 'device#show_pos_job'
+    get 'show_printers_job', to: 'device#show_printers_job'
+    get 'show_red_systems_job', to: 'device#show_red_systems_job'
   end
 end

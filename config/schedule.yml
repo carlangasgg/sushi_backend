@@ -7,7 +7,7 @@
     cron: "*/1 * * * *"
     class: "FetchPrintersJob"
     queue: "default"
-  fetch_red_services_job:
+  fetch_red_systems_job:
     cron: "*/1 * * * *"
-    class: "FetchRedServicesJob"
+    class: "FetchRedSystemsJob"
     queue: "default"
