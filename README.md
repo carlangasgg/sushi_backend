@@ -183,3 +183,61 @@ Body
 ## Consideraciones para endpoints asincrónicos
 
  - Para visualizar qué contenido muestran los endpoints asincrónicos, es necesario que el cron se haya ejecutado, al menos, una vez. Sólo así se podrá visualizar la información requerida (esto es válido tanto como para consultas vía curl, Postman y desde el frontend en React.js).
+
+ ## Script de simulación
+
+```ruby
+require 'httparty'
+require 'json'
+
+class TestScript
+  include HTTParty
+
+  base_uri 'http://localhost:3000'
+
+  def initialize
+    @headers = { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }
+  end
+
+  def update_status(device_id, type, status)
+    body = { 
+      device: {
+        id: device_id,
+        type: type,
+        status: status
+      } 
+    }.to_json
+
+    response = self.class.patch("/admin/update_device_status", headers: @headers, body: body)
+    
+    if response.success?
+      puts "Successfully updated Device #{device_id} to status #{status}: #{response.body}"
+    else
+      puts "Failed to update Device #{device_id}: #{response.body}"
+    end
+  end
+end
+
+simulator = TestScript.new
+
+statuses = %w[active interrupted inactive]
+types = %w[pos printer red_system]
+device_id = 1 
+
+loop do
+  status = statuses.sample
+  type = types.sample
+  
+  simulator.update_status(device_id, type, status)
+
+  sleep 60
+end
+```
+
+Para que ejecute correctamente, se deben agregar las librerías `httparty` y `json`
+
+Se define el endpoint con las cabeceras seteadas para el correcto funcionamiento de la consulta. Se ejecuta el patch con el endpoint `admin/update_device_status` con los datos entregados en el loop de ejecución del script.
+
+Dentro del loop de ejecución del script, se setea aleatoriamente entre tipos de dispositivos y estados. La simulación de las transacciones lo ejecuta `simulator.update_status(device_id, type, status)`. Para efectos de prueba, `device_id` siempre será `1` pues el seed agrega sólo un elemento de cada dispositivo a la base de datos.
+
+Finalmente, el loop se ejecuta cada 60 segundos, para que coincida el tiempo de iteración con la actualización del caché del cron.
