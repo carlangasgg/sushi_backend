@@ -41,5 +41,5 @@ loop do
   
   simulator.update_status(device_id, type, status)
 
-  sleep 10
+  sleep 60
 end
